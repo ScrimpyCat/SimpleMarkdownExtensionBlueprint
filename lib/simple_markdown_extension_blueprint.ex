@@ -1,4 +1,5 @@
 defmodule SimpleMarkdownExtensionBlueprint do
+    @spec rule() :: Parsey.rule
     def rule() do
         {
             :blueprint,
@@ -15,5 +16,6 @@ defmodule SimpleMarkdownExtensionBlueprint do
         }
     end
 
+    @spec add_rule([Parsey.rule]) :: [Parsey.rule]
     def add_rule(rules), do: [rule()|rules]
 end
