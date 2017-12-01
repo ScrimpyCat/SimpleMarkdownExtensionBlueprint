@@ -14,4 +14,6 @@ defmodule SimpleMarkdownExtensionBlueprint do
             }
         }
     end
+
+    def add_rule(rules), do: [rule()|rules]
 end
