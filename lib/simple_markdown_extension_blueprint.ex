@@ -18,4 +18,17 @@ defmodule SimpleMarkdownExtensionBlueprint do
 
     @spec add_rule([Parsey.rule]) :: [Parsey.rule]
     def add_rule(rules), do: [rule()|rules]
+
+    defimpl SimpleMarkdown.Renderer.HTML, for: SimpleMarkdown.Attribute.Blueprint do
+        def render(%{ option: { module, fun, [args] } }) do
+            name = ".simple_markdown_extension_blueprint.dot"
+
+            :ok = apply(module, fun, [["-o", name|args]])
+            { svg, 0 } = System.cmd("dot", ["-Tsvg", name])
+            File.rm!(name)
+
+            String.replace(svg, ~r/\A(.|\n)*?(?=<svg)/m, "", global: false)
+            |> String.trim()
+        end
+    end
 end
