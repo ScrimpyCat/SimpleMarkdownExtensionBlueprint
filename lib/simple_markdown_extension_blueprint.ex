@@ -1,4 +1,24 @@
 defmodule SimpleMarkdownExtensionBlueprint do
+    @moduledoc """
+      Adds syntax for issuing a blueprint command and embedding
+      the resulting SVG.
+
+      The command takes the form of `@blueprint[]` or `@blueprint()`.
+      Where inside the brackets are the arguments that can be
+      passed to a `blueprint` escript.
+
+      ## Example
+
+        @blueprint[plot app --messages --colour]
+
+      Which produces:
+
+      @blueprint[plot app --messages --colour]
+    """
+
+    @doc """
+      The rule for matching blueprint commands.
+    """
     @spec rule() :: Parsey.rule
     def rule() do
         {
@@ -16,6 +36,10 @@ defmodule SimpleMarkdownExtensionBlueprint do
         }
     end
 
+    @doc """
+      Insert the blueprint command rule in a appropriate place
+      in the rule parser.
+    """
     @spec add_rule([Parsey.rule]) :: [Parsey.rule]
     def add_rule(rules), do: rules ++ [rule()]
 
