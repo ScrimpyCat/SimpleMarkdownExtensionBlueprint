@@ -4,7 +4,7 @@ defmodule SimpleMarkdownExtensionBlueprint do
         {
             :blueprint,
             %{
-                match: ~r/\A@blueprint[\[\(](.*?)[\]\)]/,
+                match: ~r/\A[[:blank:]]*?@blueprint[\[\(](.*?)[\]\)]/,
                 capture: 0,
                 option: fn input, [_, { index, length }] ->
                     case String.split(binary_part(input, index, length), " ", strip: true) do
@@ -17,7 +17,7 @@ defmodule SimpleMarkdownExtensionBlueprint do
     end
 
     @spec add_rule([Parsey.rule]) :: [Parsey.rule]
-    def add_rule(rules), do: [rule()|rules]
+    def add_rule(rules), do: rules ++ [rule()]
 
     defimpl SimpleMarkdown.Renderer.HTML, for: SimpleMarkdown.Attribute.Blueprint do
         def render(%{ option: { module, fun, [args] } }) do
@@ -28,6 +28,7 @@ defmodule SimpleMarkdownExtensionBlueprint do
             File.rm!(name)
 
             String.replace(svg, ~r/\A(.|\n)*?(?=<svg)/m, "", global: false)
+            |> String.replace(~r/(?<=\A<svg )width=".*?" height=".*?"/, "width=\"100%\" height=\"100%\"", global: false)
             |> String.trim()
         end
     end
