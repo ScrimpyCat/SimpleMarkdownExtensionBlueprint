@@ -26,12 +26,18 @@ defmodule SimpleMarkdownExtensionBlueprint do
         {
             :blueprint,
             %{
-                match: ~r/\A[[:blank:]]*?@blueprint[\[\(](.*?)[\]\)]/,
+                match: ~r/\A[[:blank:]]*?@blueprint(-[^\[\(]+)*?[\[\(](.*?)[\]\)]/,
                 capture: 0,
-                option: fn input, [_, { index, length }] ->
-                    case String.split(binary_part(input, index, length), " ", strip: true) do
+                option: fn input, [_, { attr_index, attr_length }, { index, length }] ->
+                    opt = case String.split(binary_part(input, index, length), " ", trim: true) do
                         ["plot", graph|args] -> %SimpleMarkdownExtensionBlueprint{ command: { Module.safe_concat(Mix.Tasks.Blueprint.Plot, String.to_atom(String.capitalize(graph))), :run, [args] } }
                     end
+
+                    if(attr_index > 0, do: String.split(binary_part(input, attr_index, attr_length), "-", trim: true), else: [])
+                    |> Enum.reduce(opt, fn
+                        "w" <> width, opt -> %{ opt | width: width }
+                        "h" <> height, opt -> %{ opt | height: height }
+                    end)
                 end,
                 rules: []
             }

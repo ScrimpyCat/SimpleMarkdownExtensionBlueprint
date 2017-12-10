@@ -23,4 +23,17 @@ defmodule SimpleMarkdownExtensionBlueprintTest do
         assert_raise CaseClauseError, fn -> SimpleMarkdown.Parser.parse("@blueprint[plot]", [SimpleMarkdownExtensionBlueprint.rule]) end
         assert_raise ArgumentError, fn -> SimpleMarkdown.Parser.parse("@blueprint[plot test]", [SimpleMarkdownExtensionBlueprint.rule]) end
     end
+
+    test "matching blueprint command styling" do
+        opt = %SimpleMarkdownExtensionBlueprint{ command: { Mix.Tasks.Blueprint.Plot.App, :run, [[]] } }
+
+        assert [{ :blueprint, ["@blueprint-w1px[plot app]"], %{ opt | width: "1px" } }] == SimpleMarkdown.Parser.parse("@blueprint-w1px[plot app]", [SimpleMarkdownExtensionBlueprint.rule])
+        assert [{ :blueprint, ["@blueprint-w[plot app]"], %{ opt | width: "" } }] == SimpleMarkdown.Parser.parse("@blueprint-w[plot app]", [SimpleMarkdownExtensionBlueprint.rule])
+        assert [{ :blueprint, ["@blueprint-w50%[plot app]"], %{ opt | width: "50%" } }] == SimpleMarkdown.Parser.parse("@blueprint-w50%[plot app]", [SimpleMarkdownExtensionBlueprint.rule])
+        assert [{ :blueprint, ["@blueprint-h1px[plot app]"], %{ opt | height: "1px" } }] == SimpleMarkdown.Parser.parse("@blueprint-h1px[plot app]", [SimpleMarkdownExtensionBlueprint.rule])
+        assert [{ :blueprint, ["@blueprint-h[plot app]"], %{ opt | height: "" } }] == SimpleMarkdown.Parser.parse("@blueprint-h[plot app]", [SimpleMarkdownExtensionBlueprint.rule])
+        assert [{ :blueprint, ["@blueprint-h50%[plot app]"], %{ opt | height: "50%" } }] == SimpleMarkdown.Parser.parse("@blueprint-h50%[plot app]", [SimpleMarkdownExtensionBlueprint.rule])
+
+        assert [{ :blueprint, ["@blueprint-w1px-h2px[plot app]"], %{ opt | width: "1px", height: "2px" } }] == SimpleMarkdown.Parser.parse("@blueprint-w1px-h2px[plot app]", [SimpleMarkdownExtensionBlueprint.rule])
+    end
 end
