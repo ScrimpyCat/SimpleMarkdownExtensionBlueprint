@@ -5,7 +5,7 @@ defmodule SimpleMarkdownExtensionBlueprint.Mixfile do
         [
             app: :simple_markdown_extension_blueprint,
             description: "An extension for SimpleMarkdown to introduce some markup to create and embed a blueprint graph.",
-            version: "0.1.0",
+            version: "0.2.0",
             elixir: "~> 1.5",
             start_permanent: Mix.env == :prod,
             deps: deps(),
