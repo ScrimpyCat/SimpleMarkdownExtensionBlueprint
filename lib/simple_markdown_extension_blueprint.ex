@@ -36,7 +36,7 @@ defmodule SimpleMarkdownExtensionBlueprint do
 
       @blueprint[plot app --messages --colour]
 
-      ## Fixed Size Example
+      ## Fixed size example
 
         @blueprint-w300px-h50px[plot app --messages --colour]
 
@@ -44,7 +44,7 @@ defmodule SimpleMarkdownExtensionBlueprint do
 
       @blueprint-w300px-h50px[plot app --messages --colour]
 
-      ## Relative Size Example
+      ## Relative size example
 
         @blueprint-w50%-h50%[plot app --messages --colour]
 
@@ -52,7 +52,7 @@ defmodule SimpleMarkdownExtensionBlueprint do
 
       @blueprint-w50%-h50%[plot app --messages --colour]
 
-      ## Embed Example
+      ## Embed example
 
         @blueprint-embed[plot app --messages --colour]
 
@@ -60,7 +60,7 @@ defmodule SimpleMarkdownExtensionBlueprint do
 
       @blueprint-embed[plot app --messages --colour]
 
-      ## Fixed Size Embed With Relative Size Example
+      ## Fixed size embed with relative size example
 
         @blueprint-w100px-h50px-embed-w500%-h500%[plot app --messages --colour]
 
