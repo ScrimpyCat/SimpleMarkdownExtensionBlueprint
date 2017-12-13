@@ -23,7 +23,8 @@ defmodule SimpleMarkdownExtensionBlueprint.Mixfile do
         [
             { :simple_markdown, "~> 0.3" },
             { :blueprint, "~> 0.2" },
-            { :ex_doc, "~> 0.18", only: :dev }
+            { :ex_doc, "~> 0.18", only: :dev },
+            { :ex_doc_simple_markdown, "~> 0.2.1", only: :dev }
         ]
     end
 

@@ -30,23 +30,12 @@ use Mix.Config
 #     import_config "#{Mix.env}.exs"
 
 if Mix.env == :dev do
-    defmodule Documentation do
-        @behaviour ExDoc.Markdown
+    config :ex_doc_simple_markdown, [
+        pretty_codeblocks: false,
+        rules: &SimpleMarkdownExtensionBlueprint.add_rule/1
+    ]
 
-        def assets(_), do: []
-
-        def before_closing_head_tag(_), do: ""
-
-        def before_closing_body_tag(_), do: ""
-
-        def configure(_), do: :ok
-
-        def to_html(input, _) do
-            SimpleMarkdown.convert(input, parser: SimpleMarkdownExtensionBlueprint.add_rule(Application.get_env(:simple_markdown, :rules, [])))
-        end
-    end
-
-    config :ex_doc, :markdown_processor, Documentation
+    config :ex_doc, :markdown_processor, ExDocSimpleMarkdown
 end
 
 import_config "simple_markdown_rules.exs"
