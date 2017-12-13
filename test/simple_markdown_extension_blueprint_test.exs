@@ -48,6 +48,6 @@ defmodule SimpleMarkdownExtensionBlueprintTest do
         assert [{ :blueprint, ["@blueprint-embed-h1px[plot app]"], %{ opt | embed: true, height: "1px" } }] == SimpleMarkdown.Parser.parse("@blueprint-embed-h1px[plot app]", [SimpleMarkdownExtensionBlueprint.rule])
         assert [{ :blueprint, ["@blueprint-h1px-embed-h2px[plot app]"], %{ opt | embed: true, embed_height: "1px", height: "2px" } }] == SimpleMarkdown.Parser.parse("@blueprint-h1px-embed-h2px[plot app]", [SimpleMarkdownExtensionBlueprint.rule])
 
-        assert [{ :blueprint, ["@blueprint-w1px-h2px[plot app]"], %{ opt | width: "1px", height: "2px" } }] == SimpleMarkdown.Parser.parse("@blueprint-w1px-h2px-embed-w3px-h4px[plot app]", [SimpleMarkdownExtensionBlueprint.rule])
+        assert [{ :blueprint, ["@blueprint-w1px-h2px-embed-w3px-h4px[plot app]"], %{ opt | embed: true, embed_width: "1px", embed_height: "2px", width: "3px", height: "4px" } }] == SimpleMarkdown.Parser.parse("@blueprint-w1px-h2px-embed-w3px-h4px[plot app]", [SimpleMarkdownExtensionBlueprint.rule])
     end
 end
